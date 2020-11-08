@@ -36,7 +36,7 @@ def install_omnivector_challenge():
     check_call(['/usr/bin/python3', '-m', 'venv', venv_root])
     status_set("maintenance", "Installing Python requirements")
     check_call([f'{venv_root}/bin/pip', 'install', 'gunicorn'])
-    check_call([f'{venv_root}/bin/pip', 'install', '-r', '/srv/omnivector-challenge/current/requirements.txt'])
+    check_call([f'{venv_root}/bin/pip', 'install', '-r', '/srv/omnivector-challenge/app/requirements.txt'])
     set_state('omnivector_challenge.installed')
 
 
@@ -50,7 +50,7 @@ def configure_gunicorn():
         perms=0o755,
         context={
             'port': port(),
-            'project_root': '/srv/omnivector-challenge/current',
+            'project_root': '/srv/omnivector-challenge/app',
             'user': 'www-data',
             'group': 'www-data',
         }
@@ -58,7 +58,7 @@ def configure_gunicorn():
     service("enable", "omnivector-challenge")
     status_set("active", "Serving HTTP from gunicorn")
 
-@when_file_changed('/srv/omnivector-challenge/current/settings.py', '/etc/systemd/system/omnivector-challenge.service')
+@when_file_changed('/srv/omnivector-challenge/app/settings.py', '/etc/systemd/system/omnivector-challenge.service')
 def restart():
     open_port(port())
     if service_running('omnivector-challenge'):
