@@ -1,19 +1,11 @@
 name: omnivector-challenge
-summary: <Fill in summary here>
-maintainer: Ubuntu <Ubuntu@ip-172-31-19-60.us-east-2.compute.internal>
+summary: Juju operator charm to provide a REST API
+maintainer: Matheus Tosta <matheushentosta@gmail.com>
 description: |
-  <Multi-line description here>
+  An introdutory charm to provide a REST API
 tags:
-  # Replace "misc" with one or more whitelisted tags from this list:
-  # https://jujucharms.com/docs/stable/authors-charm-metadata
-  - misc
+  - flask
+  - web-application
 subordinate: false
-provides:
-  provides-relation:
-    interface: interface-name
-requires:
-  requires-relation:
-    interface: interface-name
-peers:
-  peer-relation:
-    interface: interface-name
+series:
+  - bionic
